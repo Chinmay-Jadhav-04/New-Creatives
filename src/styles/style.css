@@ -1,109 +1,60 @@
-#wrapper-canvas {
-    z-index: -1; /* Changed back to -1 to put animation behind everything */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+body{
+    margin :0;
+    font-family: 'Lobster', cursive;
+}
+.container{
+    height:100vh;
+    overflow-x: hidden;
+    perspective: 20px;
+}
+.parallax{
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform-style: preserve-3d;
+}
+.bg{
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    width:100%;
     height: 100%;
-    overflow: hidden;
-}
-
-#wrapper-canvas canvas {
-    max-width: 100%;
-    width: 100% !important;
-    height: 100% !important;
-    display: block;
-    cursor: none; /* Hide default cursor */
-}
-
-/* Ensure all content stays above the animation */
-.content-wrapper {
-    position: relative;
-    z-index: 1;
-}
-
-/* Header should be above everything */
-header {
-    position: fixed;
-    z-index: 10;
-}
-
-/* Direct approach for the container with the heading and button */
-.relative.ml-4 {
-    position: relative;
-    width: 100%;
-    padding: 1rem;
-    min-height: 300px;
-}
-
-/* Make sure all text elements are visible above the logo */
-.skz-heading {
-    position: relative;
-    z-index: 2;
-}
-
-/* Style for the tagline */
-p.pointer-events-none {
-    position: relative;
-    z-index: 2;
-}
-
-/* Style for the button */
-button {
-    position: relative;
-    z-index: 2;
-}
-
-/* Add the logo as a background to the container */
-.relative.ml-4::before {
-    content: '';
-    position: absolute;
-    top: 50%;  /* Centered vertically */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;  /* Use percentage for better responsiveness */
-    height: 100%;
-    max-width: 900px;  /* Maximum size for large screens */
-    max-height: 900px;
-    background-image: url('/assets/images/BackGround.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-image: url(img1.jpg);
+    background-size: cover;
     background-position: center;
-    opacity: 0.2;  /* Adjusted opacity for BackGround.png */
-    z-index: 1;  /* Ensure it's above the animation but below the text */
-    pointer-events: none;  /* Make sure it doesn't interfere with clicks */
+    transform: translateZ(-10px) scale(1.);
 }
-
-/* Responsive adjustments for the logo */
-@media (max-width: 1024px) {
-    .relative.ml-4::before {
-        max-width: 800px;
-        max-height: 800px;
-        opacity: 0.18;
-    }
+.content{
+    color:#fff;
+    font-size: xxx-large;
+    transform: translateZ(10px);
 }
-
-@media (max-width: 768px) {
-    .relative.ml-4::before {
-        max-width: 600px;
-        max-height: 600px;
-        opacity: 0.15;  /* Reduced opacity for smaller screens */
-    }
+.static{
+    height:100vh;
+    background-image: linear-gradient(
+        to bottom,
+        transparent,
+        #1B2735 50px
+    );
+    transform: translateY(-50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+    font-size: xxx-large;
 }
-
-@media (max-width: 480px) {
-    .relative.ml-4::before {
-        max-width: 400px;
-        max-height: 400px;
-        opacity: 0.1;  /* Further reduced opacity for mobile */
-    }
+.rock1{
+    position: absolute;
+    width:60px;
+    transform: translateZ(17px)
+        translateX(-50px) translateY(80px)
+    ;
 }
-
-/* Extra small devices */
-@media (max-width: 360px) {
-    .relative.ml-4::before {
-        max-width: 300px;
-        max-height: 300px;
-        opacity: 0.08;
-    }
+.rock2{
+    position: absolute;
+    width:90px;
+    transform: translateZ(5px)
+        translateX(80px) translateY(30px)
+    ;
 }
