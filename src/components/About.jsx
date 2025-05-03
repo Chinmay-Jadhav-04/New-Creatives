@@ -45,32 +45,9 @@ const ServiceCard = ({ icon, title, description, delay }) => {
   );
 };
 
-// Team member card component with updated color scheme
-const TeamMemberCard = ({ image, name, role, delay }) => {
-  return (
-    <motion.div
-      variants={slideInFromLeft(delay)}
-      initial="hidden"
-      animate="visible"
-      className="w-full md:w-[250px] bg-[#33103e80] backdrop-blur-lg rounded-lg overflow-hidden border border-[#e7a4ff60] hover:border-[#84d6ff] transition-all"
-    >
-      <div className="h-[200px] overflow-hidden">
-        <div className="w-full h-full bg-gradient-to-b from-[#ff9a8b40] to-[#84d6ff40] flex items-center justify-center text-4xl font-bold text-white">
-          {name.charAt(0)}
-        </div>
-      </div>
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff9a8b] to-[#84d6ff]">
-          {name}
-        </h3>
-        <p className="text-gray-200 text-sm">{role}</p>
-      </div>
-    </motion.div>
-  );
-};
+
 
 const About = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
@@ -115,54 +92,9 @@ const About = () => {
     }
   ];
 
-  // Team members data (placeholder)
-  const teamMembers = [
-    {
-      image: "/assets/images/team1.jpg",
-      name: "Pratik Singh",
-      role: "Founder & CEO",
-      delay: 0.2
-    },
-    {
-      image: "/assets/images/team2.jpg",
-      name: "Rohan Bhagat",
-      role: "Creative Director",
-      delay: 0.3
-    },
-    {
-      image: "/assets/images/team3.jpg",
-      name: "Abhishek Patil",
-      role: "Video Editor",
-      delay: 0.4
-    },
-    {
-      image: "/assets/images/team4.jpg",
-      name: "Sagar Dhangar",
-      role: "Head of Content Production",
-      delay: 0.5
-    }
-  ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
 
   // Video loading effect
   useEffect(() => {
@@ -202,7 +134,7 @@ const About = () => {
               Your browser does not support the video tag.
             </video>
             {/* Black overlay for better text visibility */}
-            <div className="absolute top-0 left-0 w-full h-full bg-black opacity-60"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70"></div>
           </>
         )}
       </div>
@@ -302,30 +234,7 @@ const About = () => {
           ))}
         </div>
 
-        {/* Team Section */}
-        <motion.h3
-          variants={slideInFromLeft(0.3)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-2xl md:text-3xl font-bold text-center mb-8"
-        >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff9a8b] to-[#84d6ff]">
-            Our Leadership Team
-          </span>
-        </motion.h3>
 
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          {teamMembers.map((member, index) => (
-            <TeamMemberCard
-              key={index}
-              image={member.image}
-              name={member.name}
-              role={member.role}
-              delay={member.delay}
-            />
-          ))}
-        </div>
 
         {/* CTA Section */}
         <motion.div

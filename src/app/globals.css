@@ -5,6 +5,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Service colors */
+  --red-500: #ef4444;
+  --cyan-400: #22d3ee;
+  --orange-400: #fb923c;
+  --green-600: #16a34a;
+  --pink-500: #ec4899;
+  --red-800: #991b1b;
+  --orange-500: #f97316;
+  --blue-800: #1e40af;
+  --green-400: #4ade80;
+  --red-600: #dc2626;
 }
 
 :root.dark {

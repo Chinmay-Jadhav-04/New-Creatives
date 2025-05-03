@@ -4,6 +4,7 @@ import React from 'react';
 import Header from './Header';
 import HeroSection from './HeroSection';
 import About from './About';
+import Services from './Services';
 
 const HomePage = () => {
   return (
@@ -13,6 +14,8 @@ const HomePage = () => {
         <Header />
         <HeroSection />
         <About />
+        <Services />:
+
       </div>
     </main>
   );

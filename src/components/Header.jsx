@@ -29,16 +29,16 @@ const Header = () => {
   };
 
   return (
-    <header className="z-10 pointer-events-none fixed top-0 w-full py-4 px-4 sm:px-6 md:px-8 lg:px-10">
+    <header className="z-50 pointer-events-none fixed top-0 w-full py-4 px-2 sm:px-4 md:px-6 lg:px-8">
       {/* Container with logo on left and controls on right */}
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
         {/* Logo on extreme left */}
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto ml-0">
           <Link href="/" className="block">
             <img
-              src="/assets/images/SKZ-Creatives-Logo-10.jpg"
+              src="/assets/images/SKZ_CREATIVES_LOGO.png"
               alt="SKZ Creatives Logo"
-              className="h-10 sm:h-12 md:h-14 w-auto "
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "https://via.placeholder.com/150x50?text=SKZ+Creatives";
@@ -48,7 +48,7 @@ const Header = () => {
         </div>
 
         {/* Controls on extreme right */}
-        <div className="flex gap-4 sm:gap-6 pointer-events-auto">
+        <div className="flex gap-4 sm:gap-6 pointer-events-auto mr-0">
           {/* Dark/Light mode toggle button */}
           <button
             className="cursor-pointer hover:scale-110 transition-transform"

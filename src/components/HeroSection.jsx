@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Arrow from './Arrow';
 import Header from './Header';
@@ -9,8 +9,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const HeroSection = () => {
   const modelContainerRef = useRef(null);
-  const [loading, setLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
     if (!modelContainerRef.current) return;
@@ -24,8 +22,8 @@ const HeroSection = () => {
     scene.background = new THREE.Color(0x0f1729);
 
     // Camera positioned farther back with a wider field of view
-    const camera = new THREE.PerspectiveCamera(25, width / height, 0.1, 1000);
-    camera.position.set(0, 1.5, 100); // Positioned much farther back
+    const camera = new THREE.PerspectiveCamera(30, width / height, 0.1, 1000);
+    camera.position.set(0, 5, 80); // Adjusted position for better visibility
     camera.lookAt(0, 0, 0); // Ensure camera is looking at the center
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -59,42 +57,30 @@ const HeroSection = () => {
     controls.enableZoom = false;
     controls.enablePan = false;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.3; // Slower rotation
+    controls.autoRotateSpeed = 1.0; // Faster rotation
     controls.minPolarAngle = Math.PI / 3;
     controls.maxPolarAngle = Math.PI / 2;
-    
+
     // Set target to keep focus on center
     controls.target.set(0, 0, 0);
     controls.update();
 
-    // Load the 3D model with progress tracking
+    // Load the 3D model
     const loader = new GLTFLoader();
 
-    // Create a loading manager to track progress
-    const loadingManager = new THREE.LoadingManager();
+    console.log('Starting to load 3D model...');
 
-    loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      const progress = (itemsLoaded / itemsTotal) * 100;
-      console.log(`Loading: ${progress.toFixed(2)}% loaded`);
-      setLoadingProgress(progress);
-    };
-
-    loadingManager.onLoad = () => {
-      console.log('Loading complete!');
-      setLoading(false);
-    };
-
-    loadingManager.onError = (url) => {
-      console.error('There was an error loading ' + url);
-    };
-
-    loader.setPath('/assets/models/');
-    loader.setResourcePath('/assets/models/');
-
+    // Load the model with absolute path to avoid any path issues
     loader.load(
-      'CreativeStudio.glb', // Updated to match the actual file name
+      '/assets/models/CreativesKa3D.glb',
       (gltf) => {
         console.log('Model loaded successfully!');
+
+        if (!gltf || !gltf.scene) {
+          console.error('Model loaded but scene is missing or invalid:', gltf);
+          return;
+        }
+
         const model = gltf.scene;
 
         // Log model details for debugging
@@ -111,16 +97,16 @@ const HeroSection = () => {
         console.log('Model size:', size);
         console.log('Max dimension:', maxDimension);
 
-        // Use a smaller scale to make the model appear further away
-        const scale = Math.min(width, height) / maxDimension / 3;
+        // Use a smaller scale for the new model
+        const scale = Math.min(width, height) / maxDimension / 2.5;
         model.scale.set(scale, scale, scale);
 
         // Center the model
         const center = box.getCenter(new THREE.Vector3());
         model.position.set(-center.x, -center.y, -center.z);
 
-        // Reset position to center of scene
-        model.position.set(0, -2, 0);
+        // Position the model for optimal viewing
+        model.position.set(0, -45, 0);
         model.rotation.y = Math.PI / 6; // Rotate for better perspective
 
         scene.add(model);
@@ -133,11 +119,42 @@ const HeroSection = () => {
         // Progress callback
         if (xhr.lengthComputable) {
           const progress = (xhr.loaded / xhr.total) * 100;
-          console.log(`${progress.toFixed(2)}% loaded`);
-          setLoadingProgress(progress);
+          console.log(`Loading progress: ${progress.toFixed(2)}%`);
         }
       },
-      (error) => console.error('An error occurred loading the model:', error)
+      (error) => {
+        console.error('An error occurred loading the model:', error);
+        console.error('Error details:', error.message);
+
+        // Try loading the non-transformed version as a fallback
+        console.log('Attempting to load original model as fallback...');
+        loader.load(
+          '/assets/models/CreativesKa3D.glb',
+          (gltf) => {
+            console.log('Fallback model loaded successfully!');
+            const model = gltf.scene;
+
+            // Use a smaller scale for the fallback model
+            const box = new THREE.Box3().setFromObject(model);
+            const size = box.getSize(new THREE.Vector3());
+            const maxDimension = Math.max(size.x, size.y, size.z);
+
+            const scale = Math.min(width, height) / maxDimension / 5;
+            model.scale.set(scale, scale, scale);
+
+            // Center and position the model
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.set(-center.x, -center.y, -center.z);
+            model.position.set(0, -45, 0);
+            model.rotation.y = Math.PI / 6;
+
+            scene.add(model);
+            renderer.render(scene, camera);
+          },
+          undefined,
+          (fallbackError) => console.error('Fallback model loading failed:', fallbackError)
+        );
+      }
     );
 
     const animate = () => {
@@ -175,13 +192,6 @@ const HeroSection = () => {
       {/* Header */}
       <Header />
 
-      {/* Loading indicator */}
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center z-20 bg-black bg-opacity-50">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
-        </div>
-      )}
-
       {/* 3D Model Background */}
       <div
         ref={modelContainerRef}
@@ -189,14 +199,14 @@ const HeroSection = () => {
       ></div>
 
       {/* Semi-transparent overlay to improve text readability */}
-      <div className="absolute inset-0 bg-black bg-opacity-30 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-50 pointer-events-none z-10"></div>
 
       {/* Hero Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-center text-white">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-['Spartan'] skz-heading mb-4">
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-20 text-center text-white">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-['Spartan'] skz-heading mb-4 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           SKZ-CREATIVES
         </h1>
-        <p className="font-['Merriweather'] italic text-lg md:text-xl">
+        <p className="font-['Merriweather'] italic text-lg md:text-xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           We Build What They'll Never Forget
         </p>
         <button
@@ -206,7 +216,7 @@ const HeroSection = () => {
               aboutSection.scrollIntoView({ behavior: 'smooth' });
             }
           }}
-          className="mt-6 bg-[#4595eb] py-2 px-5 rounded font-extrabold bg-gradient-to-l from-[#1595b6] to-[#1f2667e6] relative group"
+          className="mt-6 py-2 px-5 rounded font-extrabold bg-gradient-to-l from-[#1595b6] to-[#1f2667e6] relative group text-white shadow-lg hover:shadow-xl transition-all duration-300"
         >
           About Us
           <Arrow className="absolute top-1/2 -translate-y-1/2 -right-7 group-hover:-right-8 transition-all duration-300" />
@@ -214,9 +224,9 @@ const HeroSection = () => {
       </div>
 
       {/* Social Media Links */}
-      <ul className="fixed right-4 top-1/2 -translate-y-1/2 flex flex-col gap-6 text-white pointer-events-auto z-50 drop-shadow-lg">
+      <ul className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-6 text-white pointer-events-auto z-50 drop-shadow-lg">
         <li className="hover:scale-125 transition-transform duration-300 bg-black bg-opacity-30 rounded-full p-2">
-          <Link href="https://www.linkedin.com/in/anurag-singh-8bb5ab205/" target="_blank">
+          <Link href="https://www.linkedin.com" target="_blank">
             <svg
               className="w-5 sm:w-6 md:w-7 hover:text-blue-400 transition-colors duration-300"
               xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +240,7 @@ const HeroSection = () => {
           </Link>
         </li>
         <li className="hover:scale-125 transition-transform duration-300 bg-black bg-opacity-30 rounded-full p-2">
-          <Link href="https://twitter.com/anuragsinghbam" target="_blank">
+          <Link href="https://twitter.com" target="_blank">
             <svg
               className="w-5 sm:w-6 md:w-7 hover:text-gray-800 transition-colors duration-300"
               xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +268,7 @@ const HeroSection = () => {
         </Link>
       </li>
       <li className="hover:scale-125 transition-transform duration-300 bg-black bg-opacity-30 rounded-full p-2">
-        <Link href="#" target="_blank">
+        <Link href="https://www.gmail.com" target="_blank">
           <svg
             className="w-5 sm:w-6 md:w-7 hover:text-gray-400 transition-colors duration-300"
             xmlns="http://www.w3.org/2000/svg"
@@ -272,7 +282,7 @@ const HeroSection = () => {
         </Link>
       </li>
       <li className="hover:scale-125 transition-transform duration-300 bg-black bg-opacity-30 rounded-full p-2">
-        <Link href="www.youtube.com/@SANSKARIEZZZ" target="_blank">
+        <Link href="https://www.youtube.com/@SANSKARIEZZZ" target="_blank">
           <svg
             className="w-5 sm:w-6 md:w-7 hover:text-red-500 transition-colors duration-300"
             xmlns="http://www.w3.org/2000/svg"
