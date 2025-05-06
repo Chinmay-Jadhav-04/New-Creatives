@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 
 const SlidingLogos = () => {
+
   // Define the logos for both rows
   const row1Logos = [
     { id: 1, src: '/assets/images/oppo.png', alt: 'Oppo' },
@@ -38,14 +39,14 @@ const SlidingLogos = () => {
   // Function to render logo items with fallback
   const renderLogoItem = (logo) => {
     return (
-      <div key={logo.id} className="logoItem" style={{ width: '180px' }}>
+      <div key={logo.id} className="logoItem" style={{ width: '140px' }}>
         <div className="relative flex items-center justify-center" style={{
           width: '120px',
           height: '60px',
-          border: '1px solid rgba(150, 150, 150, 0.3)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
           borderRadius: '8px',
           padding: '8px',
-          backgroundColor: 'rgba(50, 50, 50, 0.2)'
+          backgroundColor: 'transparent'
         }}>
           {/* Try to load the image but have a fallback */}
           <Image
@@ -73,16 +74,27 @@ const SlidingLogos = () => {
   };
 
   return (
-    <div className="container">
-      <div className="logosContainer">
-        <div className="logosRow row1">
-          {row1Logos.map(renderLogoItem)}
+    <div className="py-8 w-screen overflow-hidden" style={{ width: '100vw', maxWidth: '100vw' }}>
+      {/* Logo containers */}
+      <div className="relative z-20 w-full" style={{ width: '100vw', maxWidth: '100vw' }}>
+        <div className="logosContainer">
+          <div className="logosRow row1">
+            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-1`}))}
+            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-2`}))}
+            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-3`}))}
+            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-4`}))}
+            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-5`}))}
+          </div>
         </div>
-      </div>
 
-      <div className="logosContainer">
-        <div className="logosRow row2">
-          {row2Logos.map(renderLogoItem)}
+        <div className="logosContainer">
+          <div className="logosRow row2">
+            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-1`}))}
+            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-2`}))}
+            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-3`}))}
+            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-4`}))}
+            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-5`}))}
+          </div>
         </div>
       </div>
     </div>

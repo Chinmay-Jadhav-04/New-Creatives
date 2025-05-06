@@ -1,87 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Services = () => {
   const [hoveredService, setHoveredService] = useState(null);
-  const vantaRef = useRef(null);
-  const [vantaEffect, setVantaEffect] = useState(null);
-
-  // Handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (vantaEffect) {
-        vantaEffect.setOptions({
-          minHeight: window.innerHeight * 2,
-          minWidth: window.innerWidth
-        });
-        vantaEffect.resize();
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [vantaEffect]);
-
-  // Initialize Vanta.js effect
-  useEffect(() => {
-    // Load Three.js and Vanta.js scripts
-    const loadScripts = async () => {
-      // Check if scripts are already loaded
-      if (window.THREE && window.VANTA) {
-        initVanta();
-        return;
-      }
-
-      // Load Three.js
-      const threeScript = document.createElement('script');
-      threeScript.src = '/assets/js/three.r134.min.js';
-      threeScript.async = true;
-      document.body.appendChild(threeScript);
-
-      // Load Vanta.js after Three.js
-      threeScript.onload = () => {
-        const vantaScript = document.createElement('script');
-        vantaScript.src = '/assets/js/vanta.waves.min.js';
-        vantaScript.async = true;
-        vantaScript.onload = initVanta;
-        document.body.appendChild(vantaScript);
-      };
-    };
-
-    // Initialize Vanta.js effect
-    const initVanta = () => {
-      if (!vantaRef.current || vantaEffect) return;
-
-      if (window.VANTA) {
-        const effect = window.VANTA.WAVES({
-          el: vantaRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: window.innerHeight * 2,
-          minWidth: window.innerWidth,
-          scale: 1.00,
-          scaleMobile: 1.00,
-          color: 0x0033aa,
-          shininess: 50,
-          waveHeight: 15,
-          waveSpeed: 0.8,
-          zoom: 0.7
-        });
-
-        setVantaEffect(effect);
-      }
-    };
-
-    loadScripts();
-
-    // Cleanup function
-    return () => {
-      if (vantaEffect) vantaEffect.destroy();
-    };
-  }, [vantaEffect]);
 
   const services = [
     { id: 1, title: 'CONTENT MARKETING' },
@@ -99,9 +20,7 @@ const Services = () => {
   ];
 
   return (
-    <section ref={vantaRef} className="relative bg-gradient-to-b from-blue-900 to-blue-900/50 w-full overflow-x-hidden overflow-y-auto" style={{ minHeight: 'auto' }}>
-      {/* Semi-transparent overlay for better contrast with cards */}
-      <div className="absolute inset-0 bg-black/30 pointer-events-none"></div>
+    <section className="relative w-full overflow-x-hidden overflow-y-auto" style={{ minHeight: 'auto' }}>
 
       {/* Content container */}
       <div className="relative z-10 pt-6 pb-0 sm:pt-10 sm:pb-0 md:pt-16 md:pb-0 px-3 sm:px-4 md:px-8 lg:px-16 w-full">
