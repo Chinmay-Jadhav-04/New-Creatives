@@ -1,0 +1,43 @@
+/* Ensure Vanta.js canvas covers the entire section */
+.vanta-canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0 !important;
+  object-fit: cover !important;
+}
+
+/* Fix for Vanta.js container */
+canvas {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+/* Specific styling for our Vanta.js container */
+#vanta-waves-bg {
+  position: fixed !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  overflow: hidden !important;
+  z-index: 0 !important;
+}
+
+/* Make sure the section takes full height */
+section {
+  min-height: 150vh !important;
+  width: 100% !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+}

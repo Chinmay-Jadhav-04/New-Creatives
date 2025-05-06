@@ -5,6 +5,7 @@ import Header from './Header';
 import HeroSection from './HeroSection';
 import About from './About';
 import Services from './Services';
+import Clients from './Clients';
 
 const HomePage = () => {
   return (
@@ -14,7 +15,8 @@ const HomePage = () => {
         <Header />
         <HeroSection />
         <About />
-        <Services />:
+        <Services />
+        <Clients />
 
       </div>
     </main>
