@@ -7,6 +7,10 @@ import About from './About';
 import Services from './Services';
 import Clients from './Clients';
 import BackgroundVideo from './BackgroundVideo';
+import OurWorks from './OurWorks';
+import Contact from './Contact';
+import MouseImageTrail from './MouseImageTrail';
+
 
 const HomePage = () => {
   return (
@@ -21,7 +25,9 @@ const HomePage = () => {
         <About />
         <Services />
         <Clients />
-
+        <OurWorks />
+        <Contact />
+        <MouseImageTrail />
       </div>
     </main>
   );

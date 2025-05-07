@@ -27,8 +27,8 @@ const Services = () => {
         {/* Section Header */}
         <div className="mb-8 sm:mb-12 md:mb-16 relative z-10">
           <div className="flex items-center justify-center mb-6 sm:mb-8">
-            <div className="h-10 sm:h-12 bg-blue-900/30 backdrop-blur-md flex items-center pl-4 sm:pl-6 pr-10 sm:pr-20 rounded-full shadow-lg border border-white/20 transition-all duration-300">
-              <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">SERVICES WE PROVIDE</h2>
+            <div className="h-12 sm:h-14 md:h-16 bg-blue-900/30 backdrop-blur-md flex items-center justify-center px-10 sm:px-16 md:px-20 rounded-full shadow-lg border-2 border-white/30 transition-all duration-300 min-w-[280px] sm:min-w-[350px] md:min-w-[400px]">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] text-center mx-auto">SERVICES WE PROVIDE</h2>
             </div>
           </div>
         </div>
