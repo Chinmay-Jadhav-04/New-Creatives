@@ -222,7 +222,10 @@ export default function WorksCarousel() {
   return (
     <div className="relative w-full mx-auto py-0">
       <div className="mb-0 px-4">
-        <h2 className="text-3xl font-bold">Our Works</h2>
+        <h2 className="text-3xl text-center font-bold">Our Works</h2>
+        <p className="text-center text-gray-300 max-w-2xl mx-auto">
+          Hover over each card to see our work with our clients.
+        </p>
       </div>
 
       <div className="relative w-full">
