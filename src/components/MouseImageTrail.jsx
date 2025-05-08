@@ -1,28 +1,17 @@
 'use client';
 
 import { useAnimate } from "framer-motion";
-import React, { useRef } from "react";
-import { FiMousePointer } from "react-icons/fi";
+import React, { useRef, useEffect } from "react";
 
 const MouseImageTrail = ({
   children,
   images = [
-    "/MouseTrail/MT1.jpeg",
-    "/MouseTrail/MT2.jpeg",
-    "/MouseTrail/MT3.jpeg",
-    "/MouseTrail/MT4.jpeg",
-    "/MouseTrail/MT5.jpeg",
-    "/MouseTrail/MT6.jpeg",
-    "/imgs/active/7.jpg",
-    "/imgs/active/8.jpg",
-    "/imgs/active/9.jpg",
-    "/imgs/active/10.jpg",
-    "/imgs/active/11.jpg",
-    "/imgs/active/12.jpg",
-    "/imgs/active/13.jpg",
-    "/imgs/active/14.jpg",
-    "/imgs/active/15.jpg",
-    "/imgs/active/16.jpg",
+    "/MouseTrail/MT1.JPEG",
+    "/MouseTrail/MT2.JPEG",
+    "/MouseTrail/MT3.JPEG",
+    "/MouseTrail/MT4.JPEG",
+    "/MouseTrail/MT5.JPG",
+    "/MouseTrail/MT6.JPEG",
   ],
   renderImageBuffer = 50,
   rotationRange = 25,
@@ -30,6 +19,15 @@ const MouseImageTrail = ({
   const [scope, animate] = useAnimate();
   const lastRenderPosition = useRef({ x: 0, y: 0 });
   const imageRenderCount = useRef(0);
+  
+  // Initialize lastRenderPosition on component mount
+  useEffect(() => {
+    lastRenderPosition.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    // Render an initial image to make sure everything is working
+    setTimeout(() => {
+      renderNextImage();
+    }, 100);
+  }, []);
 
   const handleMouseMove = (e) => {
     const { clientX, clientY } = e;
@@ -57,11 +55,25 @@ const MouseImageTrail = ({
     const imageIndex = imageRenderCount.current % images.length;
     const selector = `[data-mouse-move-index="${imageIndex}"]`;
     const el = document.querySelector(selector);
-    if (!el) return;
+    if (!el) {
+      console.error("Element not found:", selector);
+      return;
+    }
+    
     el.style.top = `${lastRenderPosition.current.y}px`;
     el.style.left = `${lastRenderPosition.current.x}px`;
     el.style.zIndex = imageRenderCount.current.toString();
+    
     const rotation = Math.random() * rotationRange;
+    
+    // Log for debugging
+    console.log("Rendering image:", {
+      index: imageIndex,
+      position: lastRenderPosition.current,
+      element: el,
+      rotation
+    });
+    
     animate(
       selector,
       {
@@ -81,6 +93,7 @@ const MouseImageTrail = ({
       },
       { type: "spring", damping: 15, stiffness: 200 }
     );
+    
     animate(
       selector,
       {
@@ -88,16 +101,20 @@ const MouseImageTrail = ({
       },
       { ease: "linear", duration: 0.5, delay: 5 }
     );
+    
     imageRenderCount.current = imageRenderCount.current + 1;
   };
 
   return (
     <div
       ref={scope}
-      className="relative overflow-hidden"
+      className="relative min-h-screen w-full overflow-hidden"
       onMouseMove={handleMouseMove}
     >
       {children}
+      
+ 
+      
       {images.map((img, index) => (
         <img
           className="pointer-events-none absolute left-0 top-0 h-48 w-auto rounded-xl border-2 border-black bg-neutral-900 object-cover opacity-0"
@@ -105,6 +122,10 @@ const MouseImageTrail = ({
           alt={`Mouse move image ${index}`}
           key={index}
           data-mouse-move-index={index}
+          onError={(e) => {
+            console.error(`Failed to load image: ${img}`);
+            e.target.src = "/assets/images/SKZ_CREATIVES_LOGO.png"; // Fallback image
+          }}
         />
       ))}
     </div>
