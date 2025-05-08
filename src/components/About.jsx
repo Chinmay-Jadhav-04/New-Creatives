@@ -12,6 +12,7 @@ import {
   Share2,
   Award
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 // Service card component with glassmorphism effect matching video colors
 const ServiceCard = ({ icon, title, description, delay }) => {
@@ -26,9 +27,8 @@ const ServiceCard = ({ icon, title, description, delay }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={`w-full h-full transition-all duration-500 ${
-        isHovered ? 'scale-105' : 'scale-100'
-      }`}>
+      <div className={`w-full h-full transition-all duration-500 ${isHovered ? 'scale-105' : 'scale-100'
+        }`}>
         <div className="absolute w-full h-full bg-[#33103e80] backdrop-blur-lg rounded-lg p-5 flex flex-col items-center justify-center gap-3 border border-[#e7a4ff60] hover:border-[#84d6ff] transition-all">
           <div className="text-3xl bg-gradient-to-r from-[#ff9a8b] to-[#84d6ff] p-3 rounded-full">
             {icon}
@@ -48,6 +48,7 @@ const ServiceCard = ({ icon, title, description, delay }) => {
 
 
 const About = () => {
+  const router = useRouter();
   const sectionRef = useRef(null);
 
   // Services data
@@ -109,7 +110,7 @@ const About = () => {
           viewport={{ once: true }}
           className="py-2 px-4 border border-[#e7a4ff60] opacity-[0.9] mb-4"
         >
-          <SparklesIcon className="text-[#84d6ff] mr-2 h-5 w-5 inline-block"/>
+          <SparklesIcon className="text-[#84d6ff] mr-2 h-5 w-5 inline-block" />
           <h1 className="text-sm inline-flex items-center">
             <span>About Us</span>
           </h1>
@@ -209,7 +210,7 @@ const About = () => {
             Whether you're a creator looking for representation or a brand seeking partnerships,
             we'd love to hear from you.
           </p>
-          <button className="px-6 py-3 bg-gradient-to-r from-[#ff9a8b] to-[#84d6ff] hover:opacity-90 text-[#33103e] font-medium rounded-full transition-all duration-300">
+          <button onClick={() => router.push('/#contact')} className="px-6 py-3 bg-gradient-to-r from-[#ff9a8b] to-[#84d6ff] hover:opacity-90 text-[#33103e] font-medium rounded-full transition-all duration-300">
             Get in Touch
           </button>
         </motion.div>

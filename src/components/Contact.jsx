@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { slideInFromLeft, slideInFromRight, slideInFromTop } from '@/utils/motion';
 import toast, { Toaster } from 'react-hot-toast';
+import { Clock10 } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,14 +21,14 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
+
     if (name === 'message') {
       const words = value.trim() === '' ? 0 : value.trim().split(/\s+/).length;
       setWordCount(words);
-      
+
       if (words > WORD_LIMIT) return;
     }
-    
+
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -37,7 +38,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -76,7 +77,7 @@ const Contact = () => {
 
       <div id="contact" className="flex flex-col items-center justify-center min-h-screen w-full px-4 md:px-20 py-10">
         <Toaster />
-        
+
         {/* Header */}
         <motion.div
           variants={slideInFromTop}
@@ -84,7 +85,7 @@ const Contact = () => {
           animate="visible"
           className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9] mb-[20px] flex items-center"
         >
-          <SparklesIcon className="text-[#9bfffa] mr-[10px] h-5 w-5"/>
+          <SparklesIcon className="text-[#9bfffa] mr-[10px] h-5 w-5" />
           <h1 className="Welcome-text text-[13px]">
             Get in Touch
           </h1>
@@ -144,6 +145,8 @@ const Contact = () => {
                   name="whatsapp"
                   value={formData.whatsapp}
                   onChange={handleChange}
+                  minLength={10}
+                  maxLength={10}
                   required
                   className="w-full bg-[#ffffff0a] backdrop-blur-sm border border-[#ffffff1a] rounded-lg px-4 py-2 text-gray-200 focus:outline-none focus:border-[#0066cc] transition-colors"
                 />

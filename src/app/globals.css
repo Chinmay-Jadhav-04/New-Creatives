@@ -111,8 +111,8 @@ canvas {
 }
 
 .logosContainer {
-  width: 100vw;
-  max-width: 100vw;
+  width: 100dvw;
+  max-width: 100dvw;
   overflow: hidden;
   position: relative;
   margin-bottom: 30px;

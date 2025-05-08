@@ -74,26 +74,26 @@ const SlidingLogos = () => {
   };
 
   return (
-    <div className="py-8 w-screen overflow-hidden" style={{ width: '100vw', maxWidth: '100vw' }}>
+    <div className="py-8 w-screen overflow-hidden" style={{ width: '100dvw', maxWidth: '100dvw' }}>
       {/* Logo containers */}
-      <div className="relative z-20 w-full" style={{ width: '100vw', maxWidth: '100vw' }}>
+      <div className="relative z-20 w-full" style={{ width: '100dvw', maxWidth: '100dvw' }}>
         <div className="logosContainer">
           <div className="logosRow row1">
-            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-1`}))}
-            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-2`}))}
-            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-3`}))}
-            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-4`}))}
-            {row1Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-5`}))}
+            {row1Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-1` }))}
+            {row1Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-2` }))}
+            {row1Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-3` }))}
+            {row1Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-4` }))}
+            {row1Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-5` }))}
           </div>
         </div>
 
         <div className="logosContainer">
           <div className="logosRow row2">
-            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-1`}))}
-            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-2`}))}
-            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-3`}))}
-            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-4`}))}
-            {row2Logos.map((logo) => renderLogoItem({...logo, id: `${logo.id}-5`}))}
+            {row2Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-1` }))}
+            {row2Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-2` }))}
+            {row2Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-3` }))}
+            {row2Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-4` }))}
+            {row2Logos.map((logo) => renderLogoItem({ ...logo, id: `${logo.id}-5` }))}
           </div>
         </div>
       </div>

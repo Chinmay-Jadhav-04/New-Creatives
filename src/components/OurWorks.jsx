@@ -6,70 +6,70 @@ const clientWorks = [
   {
     name: "Sanskariezzz",
     type: "video",
-    video: ["/Our Works Creatives/Inhouse/BrandVideo1.mp4"], // Ensure this path is correct
+    video: ["/Our_Works_Creatives/Inhouse/BrandVideo2.mp4"], // Ensure this path is correct
     title: "SANSKARIEZZZ",
     description: "Sanskariezzz is a content creator and influencer brand."
   },
   {
-    name: "Console Gaming",
+    name: "Console_Gaming",
     type: "image",
-    images: ["/Our Works Creatives/Console Gaming/Console1.jpg", "/Our Works Creatives/Console Gaming/Console2.jpg", "/Our Works Creatives/Console Gaming/Console3.jpg", "/Our Works Creatives/Console Gaming/Console4.jpg", "/Our Works Creatives/Console Gaming/Console5.jpg"],
+    images: ["/Our_Works_Creatives/Console_Gaming/Console1.jpg", "/Our_Works_Creatives/Console_Gaming/Console2.jpg", "/Our_Works_Creatives/Console_Gaming/Console3.jpg", "/Our_Works_Creatives/Console_Gaming/Console4.jpg", "/Our_Works_Creatives/Console_Gaming//Console5.jpg"],
     title: "Console Gaming",
     description: "Console Gaming is a gaming cafe in which people can play playstation and pc games."
   },
   {
     name: "Bombay Diner",
     type: "image",
-    images: ["/Our Works Creatives/Bombay Diner/BD1.jpg", "/Our Works Creatives/Bombay Diner/BD2.jpg", "/Our Works Creatives/Bombay Diner/BD3.jpg", "/Our Works Creatives/Bombay Diner/BD4.jpg", "/Our Works Creatives/Bombay Diner/BD5.jpg"],
+    images: ["/Our_Works_Creatives/Bombay_Diner/BD1.jpg", "/Our_Works_Creatives/Bombay_Diner/BD2.jpg", "/Our_Works_Creatives/Bombay_Diner/BD3.jpg", "/Our_Works_Creatives/Bombay_Diner/BD4.jpg", "/Our_Works_Creatives/Bombay_Diner/BD5.jpg"],
     title: "Bombay-Diner",
     description: "Bombay Diner is a multi-cuisine restaurant with great taste and ambience."
   },
   {
     name: "Ocean Bright",
     type: "image",
-    images: ["/Our Works Creatives/Ocean Bright/OB1.jpg", "/Our Works Creatives/Ocean Bright/OB2.jpg", "/Our Works Creatives/Ocean Bright/OB3.jpg", "/Our Works Creatives/Ocean Bright/OB4.jpg", "/Our Works Creatives/Ocean Bright/OB5.jpg"],
+    images: ["/Our_Works_Creatives/Ocean_Bright/OB1.jpg", "/Our_Works_Creatives/Ocean_Bright/OB2.jpg", "/Our_Works_Creatives/Ocean_Bright/OB3.jpg", "/Our_Works_Creatives/Ocean_Bright/OB4.jpg", "/Our_Works_Creatives/Ocean_Bright/OB5.jpg"],
     title: "Ocean Bright",
     description: "Ocean Bright is a school of primary education."
   },
   {
     name: "Dr Vrishali Piles Care Clinic",
     type: "image",
-    images: ["/Our Works Creatives/Dr Vrishali Piles Care Clinic/DR1.jpg", "/Our Works Creatives/Dr Vrishali Piles Care Clinic/DR2.jpg", "/Our Works Creatives/Dr Vrishali Piles Care Clinic/DR3.jpg", "/Our Works Creatives/Dr Vrishali Piles Care Clinic/DR4.jpg", "/Our Works Creatives/Dr Vrishali Piles Care Clinic/DR5.jpg"],
+    images: ["/Our_Works_Creatives/Dr_Vrishali_Piles_Care_Clinic/DR1.jpg", "/Our_Works_Creatives/Dr_Vrishali_Piles_Care_Clinic/DR2.jpg", "/Our_Works_Creatives/Dr_Vrishali_Piles_Care_Clinic/DR3.jpg", "/Our_Works_Creatives/Dr_Vrishali_Piles_Care_Clinic/DR4.jpg", "/Our_Works_Creatives/Dr_Vrishali_Piles_Care_Clinic/DR5.jpg"],
     title: "Dr Vrishali Piles Care Clinic",
     description: "Dr Vrishali Piles Care Clinic is a clinic for piles treatment."
   },
   {
     name: "Jio Games",
     type: "image",
-    images: [`/Our Works Creatives/Jio Games/JG.jpg`],
+    images: [`/Our_Works_Creatives/JioGames/JG.jpg`],
     title: "Jio Games",
     description: "JioGames is an online gaming platform by Reliance Jio that offers a wide range of mobile, cloud, and casual games for users across India."
   },
   {
     name: "Fitness Mantra",
     type: "image",
-    images: ["/Our Works Creatives/Fitness Mantra/FM1.jpg", "/Our Works Creatives/Fitness Mantra/FM2.jpg", "/Our Works Creatives/Fitness Mantra/FM3.jpg", "/Our Works Creatives/Fitness Mantra/FM4.jpg", "/Our Works Creatives/Fitness Mantra/FM5.jpg"],
+    images: ["/Our_Works_Creatives/Fitness_Mantra/FM1.jpg", "/Our_Works_Creatives/Fitness_Mantra/FM2.jpg", "/Our_Works_Creatives/Fitness_Mantra/FM3.jpg", "/Our_Works_Creatives/Fitness_Mantra/FM4.jpg", "/Our_Works_Creatives/Fitness_Mantra/FM5.jpg"],
     title: "Fitness Mantra",
     description: "Fitness Mantra is a fitness center for people of all ages."
   },
   {
     name: "Level Up the Next Gen Gaming",
     type: "image",
-    images: ["/Our Works Creatives/Level Up the Next Gen Gaming/LG1.jpg", "/Our Works Creatives/Level Up the Next Gen Gaming/LG2.jpg", "/Our Works Creatives/Level Up the Next Gen Gaming/LG3.jpg", "/Our Works Creatives/Level Up the Next Gen Gaming/LG4.jpg", "/Our Works Creatives/Level Up the Next Gen Gaming/LG5.jpg"],
+    images: ["/Our_Works_Creatives/Level_Up_the_Next_Gen_Gaming/LG1.jpg", "/Our_Works_Creatives/Level_Up_the_Next_Gen_Gaming/LG2.jpg", "/Our_Works_Creatives/Level_Up_the_Next_Gen_Gaming/LG3.jpg", "/Our_Works_Creatives/Level_Up_the_Next_Gen_Gaming/LG4.jpg", "/Our_Works_Creatives/Level_Up_the_Next_Gen_Gaming/LG5.jpg"],
     title: "Level up the Next Gen Gaming",
     description: "Level Up the Next Gen Gaming is a gaming cafe in which people can play playstation, ps and tablepool games."
   },
   {
     name: "Wartex Esports",
     type: "image",
-    images: ["/Our Works Creatives/Wartex Esports/WE1.jpg", "/Our Works Creatives/Wartex Esports/WE2.jpg", "/Our Works Creatives/Wartex Esports/WE3.jpg"] ,
+    images: ["/Our_Works_Creatives/Wartex_Esports/WE1.jpg", "/Our_Works_Creatives/Wartex_Esports/WE2.jpg", "/Our_Works_Creatives/Wartex_Esports/WE3.jpg"],
     title: "Wartex Esports",
     description: "Wartex Esports is an esports organization that organizes esports tournaments and provides coaching and training services."
   },
   {
     name: "Yahoom",
     type: "image",
-    images: ["/Our Works Creatives/Yahoom/Yahoom1.jpg", "/Our Works Creatives/Yahoom/Yahoom2.jpg", "/Our Works Creatives/Yahoom/Yahoom3.jpg", "/Our Works Creatives/Yahoom/Yahoom4.jpg", "/Our Works Creatives/Yahoom/Yahoom5.jpg"],
+    images: ["/Our_Works_Creatives/Yahoom/Yahoom1.jpg", "/Our_Works_Creatives/Yahoom/Yahoom2.jpg", "/Our_Works_Creatives/Yahoom/Yahoom3.jpg", "/Our_Works_Creatives/Yahoom/Yahoom4.jpg", "/Our_Works_Creatives/Yahoom/Yahoom5.jpg"],
     title: "Yahoom",
     description: "Yahoom is a clothing brand for those who dare to be different."
   }

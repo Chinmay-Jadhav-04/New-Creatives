@@ -7,12 +7,12 @@ const Clients = () => {
 
   return (
     <section
-      className="py-16 relative w-screen"
+      className="py-8 relative w-screen"
       style={{
         position: 'relative',
         overflow: 'hidden',
-        width: '100vw',
-        maxWidth: '100vw'
+        width: '100dvw',
+        maxWidth: '100dvw'
       }}
     >
 
