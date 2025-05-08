@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import useIsMobile from '../hooks/useIsMobile';
 
 // Client works data structure
 const clientWorks = [
@@ -78,14 +79,16 @@ const clientWorks = [
 // Card component
 const Card = ({ data, isActive }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const videoRef = useRef(null);
+  const isMobile = useIsMobile();
 
-  // Handle slideshow effect on hover for images
+  // Handle slideshow effect on hover for images (desktop only)
   useEffect(() => {
     let slideInterval;
 
-    if (isHovered && data && data.type === 'image' && data.images) {
+    if (!isMobile && isHovered && data && data.type === 'image' && data.images) {
       if (data.images.length > 1) {
         slideInterval = setInterval(() => {
           setCurrentSlideIndex((prev) => (prev + 1) % data.images.length);
@@ -96,19 +99,19 @@ const Card = ({ data, isActive }) => {
     return () => {
       if (slideInterval) clearInterval(slideInterval);
     };
-  }, [isHovered, data?.type, data?.images?.length]);
+  }, [isHovered, data?.type, data?.images?.length, isMobile]);
 
-  // Reset slide index when not hovering
+  // Reset slide index when not hovering (desktop only)
   useEffect(() => {
-    if (!isHovered) {
+    if (!isMobile && !isHovered) {
       setCurrentSlideIndex(0);
     }
-  }, [isHovered]);
+  }, [isHovered, isMobile]);
 
-  // Handle video play/pause on hover
+  // Handle video play/pause on hover (desktop) or click (mobile)
   useEffect(() => {
     if (data && data.video && data.type === 'video' && videoRef.current) {
-      if (isHovered) {
+      if ((isMobile && isPlaying) || (!isMobile && isHovered)) {
         const playPromise = videoRef.current.play();
         if (playPromise !== undefined) {
           playPromise.catch((err) => console.error("Video play failed:", err));
@@ -118,7 +121,7 @@ const Card = ({ data, isActive }) => {
         videoRef.current.currentTime = 0;
       }
     }
-  }, [isHovered, data?.type, data?.video?.length]);
+  }, [isHovered, isPlaying, data?.type, data?.video?.length, isMobile]);
 
   // Get the current background image
   const getBackgroundImage = () => {
@@ -129,27 +132,42 @@ const Card = ({ data, isActive }) => {
     return null;
   };
 
+  // Handle card click for mobile devices
+  const handleCardClick = () => {
+    if (isMobile) {
+      setIsPlaying(!isPlaying);
+      if (data && data.type === 'image' && data.images && data.images.length > 1) {
+        setCurrentSlideIndex((prev) => (prev + 1) % data.images.length);
+      }
+    }
+  };
+
   return (
     <div
       className={`flex-shrink-0 w-80 h-96 rounded-lg overflow-hidden relative transition-all duration-500 shadow-lg ${isActive ? 'scale-100 shadow-xl' : 'scale-90 opacity-80'}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onClick={handleCardClick}
     >
       {/* Dark background as fallback */}
       <div className="absolute inset-0 w-full h-full transition-all duration-500 bg-gray-900" />
 
       {/* Media background with blur effect */}
-      <div className={`absolute inset-0 w-full h-full transition-all duration-500 overflow-hidden ${isHovered ? 'scale-105 z-20' : 'blur-xl scale-100 z-0'}`}>
+      <div className={`absolute inset-0 w-full h-full transition-all duration-500 overflow-hidden ${
+        (isMobile && isPlaying) || (!isMobile && isHovered)
+          ? 'scale-105 z-20'
+          : 'blur-xl scale-100 z-0'
+      }`}>
         {data && data.video && data.type === 'video' ? (
           <video
             ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover"
             playsInline
-            autoPlay
+            autoPlay={!isMobile}
             muted
             loop
             src={data.video && data.video[currentSlideIndex % data.video.length]}
-            onError={(e) => {
+            onError={() => {
               console.error("Video failed to load:", data.video?.[currentSlideIndex]);
             }}
           ></video>
@@ -160,7 +178,9 @@ const Card = ({ data, isActive }) => {
             alt={data.title || 'Project image'}
             onError={(e) => {
               console.error("Image failed to load:", getBackgroundImage());
-              e.target.style.backgroundColor = '#333';
+              if (e && e.target) {
+                e.target.style.backgroundColor = '#333';
+              }
             }}
           />
         ) : (
@@ -170,16 +190,37 @@ const Card = ({ data, isActive }) => {
         )}
       </div>
 
+      {/* Play button overlay for mobile */}
+      {isMobile && !isPlaying && (
+        <div className="absolute inset-0 flex items-center justify-center z-30">
+          <div className="bg-black/50 rounded-full p-4 backdrop-blur-sm">
+            <Play size={32} className="text-white" />
+          </div>
+        </div>
+      )}
+
       {/* Semi-transparent overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-all duration-500 ${isHovered ? 'opacity-20' : 'opacity-80'}`}></div>
+      <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-all duration-500 ${
+        (isMobile && isPlaying) || (!isMobile && isHovered)
+          ? 'opacity-20'
+          : 'opacity-80'
+      }`}></div>
 
       <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-10">
-        <div className={`transition-all duration-500 ${isHovered ? 'translate-y-0 opacity-50 blur-sm' : 'translate-y-4 opacity-90'}`}>
+        <div className={`transition-all duration-500 ${
+          (isMobile && isPlaying) || (!isMobile && isHovered)
+            ? 'translate-y-0 opacity-50 blur-sm'
+            : 'translate-y-4 opacity-90'
+        }`}>
           {data?.category && (
             <p className="text-sm font-medium mb-1 opacity-80">{data.category}</p>
           )}
           <h3 className="text-2xl font-bold mb-2">{data?.title || 'Project'}</h3>
-          <p className={`text-sm transition-all duration-500 ${isHovered ? 'opacity-50 max-h-24' : 'opacity-70 max-h-10 overflow-hidden'}`}>
+          <p className={`text-sm transition-all duration-500 ${
+            (isMobile && isPlaying) || (!isMobile && isHovered)
+              ? 'opacity-50 max-h-24'
+              : 'opacity-70 max-h-10 overflow-hidden'
+          }`}>
             {data?.description || 'Client project'}
           </p>
         </div>
@@ -224,7 +265,9 @@ export default function WorksCarousel() {
       <div className="mb-0 px-4">
         <h2 className="text-3xl text-center font-bold">Our Works</h2>
         <p className="text-center text-gray-300 max-w-2xl mx-auto">
-          Hover over each card to see our work with our clients.
+          {useIsMobile()
+            ? "Tap on each card to see our work with our clients."
+            : "Hover over each card to see our work with our clients."}
         </p>
       </div>
 
