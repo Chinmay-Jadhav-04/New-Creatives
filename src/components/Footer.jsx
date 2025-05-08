@@ -27,11 +27,12 @@ const Footer = () => {
       { name: "Contact", url: "mailto:admin@skztech.in" }
     ],
     services: [
-      { name: "Video Editing", url: "/services/video-editing" },
-      { name: "Social Media Content", url: "/services/social-media" },
-      { name: "Event Coverage", url: "/services/event-coverage" },
-      { name: "Content Strategy", url: "/services/content-strategy" },
-      { name: "Graphics Designing", url: "/services/graphics-design" }
+      { name: "Talent Management", url: "/services/talent-management" },
+      { name: "Influencer Marketing", url: "/services/influencer-marketing" },
+      { name: "PR & Communications", url: "/services/pr-communications" },
+      { name: "Social Media Management", url: "/services/social-media-management" },
+      { name: "Video Production", url: "/services/video-production" },
+      { name: "Brand Partnerships", url: "/services/brand-partnerships" }
     ]
   };
 
@@ -54,9 +55,9 @@ const Footer = () => {
       <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row justify-between z-[41]">
         {/* Left Side */}
         <div className="md:w-1/3 mb-8 md:mb-0">
-          <h1 className="text-3xl font-bold mb-4 gradient-text relative z-[42]">SKZ-CREATIVE</h1>
+          <h1 className="text-3xl font-bold mb-4 gradient-text relative z-[42]">SKZ-CREATIVES</h1>
           <p className="text-gray-300 text-sm leading-relaxed relative z-[42]">
-          SKZ Creative – Crafting visually stunning videos, graphics, and social media content to elevate your brand's digital presence.
+          SKZ Creatives – Crafting visually stunning videos, graphics, and social media content to elevate your brand's digital presence.
           </p>
         </div>
 
